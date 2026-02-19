@@ -19,7 +19,7 @@ def starter_page():
 
 
 
-@app.route("/Register")
+@app.route("/register")
 def register():
     return render_template("register.html")
 
