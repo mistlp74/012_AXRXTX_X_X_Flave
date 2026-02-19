@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/login-register.css') }}">
     <title>Document</title>
 </head>
 <body>
-    <form id="loginForm" method="post" action="/register">
+    <form class="login-form" method="post" action="/register">
         <input class="login-input" type="text" name="username" placeholder="Enter username">
         <input class="login-input" type="password" name="password" placeholder="Enter password">
 

@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/login-register.css') }}">
 
 </head>
 <body>
-    <form id="loginForm" method="post" action="/">
+    <form class="login-form" method="post" action="/">
         <input class="login-input" type="text" name="username" placeholder="Enter username">
         <input class="login-input" type="password" name="password" placeholder="Enter password">
 
-        <button id="login-button" type="submit">Submit</button>
+        <div id="buttons-div">
+            <button id="login-button" type="submit">Submit</button>
+            <button id="register-button" onclick="window.location.href='/Register'">Register</button>
+        </div>
     </form>
-
-    <button id="register-button" onclick="window.location.href='/Register'">Register</button>
 </body>
 </html>
