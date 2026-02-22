@@ -1,0 +1,26 @@
+body {
+    background-color: #282c34;
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#main_title {
+    font-size: 2em;
+    color: #ffffff;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#add_contact_form {
+    background-color: #9c4b4b;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}

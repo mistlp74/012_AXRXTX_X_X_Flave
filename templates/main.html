@@ -3,10 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/login-register.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
     <title>Document</title>
 </head>
 <body>
-    <h1>Welcome to the main page!</h1>
+    <aside>
+        <ul>
+        </ul>
+    </aside>
+
+    <main>
+        <h1 id="main_title">Main Page</h1>
+    </main>
+
+    <button id="contact_form_button">add contact</button>
+
+    <form id="add_contact_form" method="post" action="/add_contact">
+        <input type="text" name="contact_name" placeholder="Enter contact name">
+        <input type="text" name="contact_public_id" placeholder="Enter user public id">
+        <button type="submit">Add Contact</button>
+    </form>
+
+    <form id="chat_form" method="post" action="/send_message">
+        <input type="text" name="message" placeholder="Enter message">
+        <button type="submit">Send Message</button>
+    </form>
+
+    <div>
+        <ul id="requests_list">
+
+        </ul>
+    </div>
+
+    
+    <script>
+        
+
+        const button = document.getElementById("contact_form_button");
+        button.addEventListener("click", function() { 
+            const form = document.getElementById("add_contact_form");
+            form.style.display = "flex";
+        });
+
+        async function loadRequests() {
+            const response = await fetch("/api/requests");
+            if (!response.ok) return;
+
+            const requests = await response.json();
+
+            const list = document.getElementById("requests_list");
+            list.innerHTML = "";
+
+            requests.forEach(r => {
+                const li = document.createElement("li");
+                const div = document.createElement("div");
+                div.className = "request-item";
+
+                const spanId = document.createElement("span");
+                spanId.textContent = `User ID: ${r.user_id} `;
+
+                const spanName = document.createElement("span");
+                spanName.textContent = `Username: ${r.username} `;
+
+                const btnAccept = document.createElement("button");
+                btnAccept.textContent = "Accept";
+                btnAccept.onclick = async () => {
+                    const response = await fetch(`/api/accept_request/${r.id}`, { method: "POST" });
+                    if (response.ok) loadRequests();
+                };
+
+                const btnDecline = document.createElement("button");
+                btnDecline.textContent = "Decline";
+                btnDecline.onclick = async () => {
+                    const response = await fetch(`/api/decline_request/${r.id}`, { method: "POST" });
+                    if (response.ok) loadRequests();
+                };
+
+                div.append(spanId, spanName, btnAccept, btnDecline);
+                li.appendChild(div);
+                list.appendChild(li);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            loadRequests();
+        });
+    </script>
 </body>
 </html>

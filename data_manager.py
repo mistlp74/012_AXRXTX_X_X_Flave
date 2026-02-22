@@ -1,4 +1,4 @@
-from models import db, User
+from models import db, User, Requests, Contacts, Messages
 import os
 import hashlib
 
@@ -12,6 +12,9 @@ def delete_the_user(username):
 
 def user_existence(username):
     return User.query.filter_by(username=username).first() is not None
+
+def user_id_existence(public_id):
+    return User.query.filter_by(public_id=public_id).first() is not None
 
 
 def user_get(username):
@@ -67,7 +70,31 @@ def generate_public_id(user_id):
     suffix = os.urandom(3).hex()
     return f"{prefix}#{user_id}_{suffix}"
 
-def get_user_id_by_public_id(public_id):
-    parts = public_id.split('#')
+def get_id_by_public_id(public_id):
+    parts = str(public_id).split('#')
     user_id_str = parts[1].split('_')[0]
     return int(user_id_str)
+
+
+# Users interaction functions
+
+def add_contact_request(user_id, username, contact_name, contact_id):
+    new_request = Requests(
+        user_id = user_id,
+        username = username,
+        user2_id = contact_id,
+        user2_phantom_name = contact_name
+    )
+
+    db.session.add(new_request)
+    db.session.commit()
+
+def dm_add_contact(user_id, contact_name, contact_id):
+    new_contact = Contacts(
+        user_id = user_id,
+        user2_id = contact_id,
+        user2_phantom_name = contact_name
+    )
+
+    db.session.add(new_contact)
+    db.session.commit()

@@ -5,20 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/login-register.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/starter_page.css') }}">
 
 </head>
 <body>
-    <form class="login-form" method="post" action="/">
+    <div id="co-content">
+        <h1 id="flave-title">Flave</h1>
+        <p id="p-nisetu">powered by Nisetu</p>
+    </div>
+    <form id="login-form" method="post" action="/">
+        <h1 id="login-title">Login</h1>
         <input class="login-input" type="text" name="username" placeholder="Enter username">
         <input class="login-input" type="password" name="password" placeholder="Enter password">
 
-        <div id="buttons-div">
-            <button id="login-button" type="submit">Login</button>
-            <button id="register-button" type="button" onclick="window.location.href='{{ url_for('register') }}'">
-            Register
-            </button>
-        </div>
+        <button id="login-button" type="submit">Login</button>
+        <button id="register-button" type="button" onclick="window.location.href='{{ url_for('register') }}'">
+        Create Account
+        </button>
     </form>
 </body>
 </html>
